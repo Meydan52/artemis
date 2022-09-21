@@ -2,7 +2,7 @@
 env:
   project_id: "toxltunjgufcifno"
   repo: "https://github.com/Meydan52/artemis.git"
-  image_tag: "1.0.0"   #${{ GITHUB_BRANCH }}
+  version: "1.0.0"   #${{ GITHUB_BRANCH }}
   region: "us-central1"
   app_name: "artemis"
 
@@ -41,7 +41,7 @@ jobs:
       - name: Switch Branches
         working-directory: ${{ env.app_name }}
         run: |
-         git checkout ${{ env.image_tag }}
+         git checkout ${{ env.version }}
          ls -ls 
 
 
@@ -49,14 +49,14 @@ jobs:
       - name: Build Image
         working-directory: ${{ env.app_name }}
         run: |
-         docker build -t ${{ env.app_name }}:${{ env.image_tag }} .
+         docker build -t ${{ env.app_name }}:${{ env.version }} .
 
 
       # Runs a set of commands using the runners shell
       - name: Tag Image
         working-directory: ${{ env.app_name }}
         run: |
-          docker image tag ${{ env.app_name }}:${{ env.image_tag }} ${{ env.region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.app_name }}/${{ env.app_name }}:${{ env.image_tag }}
+          docker image tag ${{ env.app_name }}:${{ env.version }} ${{ env.region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.app_name }}/${{ env.app_name }}:${{ env.version }}
 
 
       # Runs a single command using the runners shell
@@ -79,4 +79,4 @@ jobs:
       - name: Push Image
         working-directory: ${{ env.app_name }}
         run: |
-          docker push ${{ env.region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.app_name }}/${{ env.app_name }}:${{ env.image_tag }}     
+          docker push ${{ env.region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.app_name }}/${{ env.app_name }}:${{ env.version }}     
