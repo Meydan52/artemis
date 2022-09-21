@@ -1,7 +1,7 @@
 # This is a basic workflow to help you get started with Actions
 env:
   project_id: "toxltunjgufcifno"
-  repo: "https://github.com/Meydan52/artemis"
+  repo: "https://github.com/Meydan52/artemis.git"
   image_tag: "1.0.0"   #${{ GITHUB_BRANCH }}
   region: "us-central1"
   app_name: "artemis"
@@ -12,9 +12,9 @@ name: ContiniousDelivery
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -35,7 +35,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Clone a repo
         run: |
-         git clone https://github.com/farrukh90/${{ env.app_name }}.git
+         git clone ${{ env.repo }}${{ env.app_name }}.git
 
       # Runs a set of commands using the runners shell
       - name: Switch Branches
